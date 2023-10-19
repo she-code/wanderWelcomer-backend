@@ -1,9 +1,10 @@
-const { Place } = require("../models");
+const { Place } = require("../models/place");
 exports.createPlace = async (req, res) => {
   try {
-    const { name, location, image, category } = req.body;
+    const { name, location, description, image, category } = req.body;
     const place = await Place.create({
       name,
+      description,
       location,
       category,
       image,
@@ -27,7 +28,24 @@ exports.createPlace = async (req, res) => {
 
 exports.getAllPlaces = async (req, res) => {
   try {
-    const places = await Place.findAll();
+    console.log(req.query);
+    //filtering
+    const queryObj = { ...req.query };
+    const excludedfiels = ["page", "sort", "limit", "fields"];
+    excludedfiels.forEach((el) => delete queryObj[el]);
+
+    //advanced filtering
+    // const queryStr = JSON.stringify(queryObj)
+    // queryStr.replace(/\b(gte|gt|lte|lt)\b/g,match=>`$${match}`)
+    if (queryObj.name) {
+      queryObj.name = {
+        $regex: queryObj.name,
+        $options: "i",
+      };
+    }
+
+    const query = Place.find(queryObj);
+    const places = await query;
     if (!places) {
       res.status(404).json({
         status: "failed",
@@ -49,7 +67,7 @@ exports.getAllPlaces = async (req, res) => {
 exports.getPlace = async (req, res) => {
   try {
     const id = req.params.id;
-    const place = await Place.findByPk(id);
+    const place = await Place.findById(id);
     if (!place) {
       res.status(404).json({
         status: "failed",
@@ -71,7 +89,7 @@ exports.getPlace = async (req, res) => {
 exports.getPlacesByCategory = async (req, res) => {
   try {
     const category = req.params.category;
-    const places = await Place.findAll({ where: { category: category } });
+    const places = await Place.find({ where: { category: category } });
     if (!places) {
       res.status(404).json({
         status: "failed",

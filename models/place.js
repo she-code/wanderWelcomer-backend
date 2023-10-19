@@ -1,26 +1,33 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class Place extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  }
-  Place.init({
-    name: DataTypes.STRING,
-    location: DataTypes.STRING,
-    image: DataTypes.STRING,
-    category: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Place',
-  });
-  return Place;
-};
+const { mongoose } = require("mongoose");
+
+const placeSchema = new mongoose.Schema({
+  name: { type: String, required: [true, "Place name is required"] },
+  description: { type: String },
+  location: { type: String, required: [true, "Place location is required"] },
+  category: {
+    type: String,
+    required: [true, "Place category is required"],
+    enum: [
+      "mall",
+      "beach",
+      "bar",
+      "bank",
+      "cinema",
+      "gym",
+      "hospital",
+      "library",
+      "park",
+      "restaurant",
+      "pharmacy",
+      "others",
+    ],
+  },
+  image: { type: String },
+  rating: {
+    type: Number,
+    default: 4.5,
+  },
+});
+
+const Place = mongoose.model("Place", placeSchema);
+module.exports = { Place };
