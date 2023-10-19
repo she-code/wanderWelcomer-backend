@@ -4,6 +4,8 @@ require("dotenv").config({ path: "./config.env" });
 
 //import files
 const placesRoute = require("./routes/placesRoute");
+const usersRoute = require("./routes/usersRoute");
+
 //creates express application
 const app = express();
 app.use(express.json());
@@ -15,4 +17,6 @@ app.get("/", (req, res) => {
 
 //routes
 app.use("/api/v1/places", placesRoute);
+app.use("/api/v1/users", usersRoute);
+
 module.exports = app;
