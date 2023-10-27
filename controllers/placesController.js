@@ -1,13 +1,14 @@
 const { Place } = require("../models/place");
 exports.createPlace = async (req, res) => {
   try {
-    const { name, location, description, image, category } = req.body;
+    const { name, location, description, image, category, routes } = req.body;
     const place = await Place.create({
       name,
       description,
       location,
       category,
       image,
+      routes,
     });
     if (!place) {
       res.status(400).json({
@@ -89,7 +90,8 @@ exports.getPlace = async (req, res) => {
 exports.getPlacesByCategory = async (req, res) => {
   try {
     const category = req.params.category;
-    const places = await Place.find({ where: { category: category } });
+    const places = await Place.find({ category });
+    console.log(places);
     if (!places) {
       res.status(404).json({
         status: "failed",
