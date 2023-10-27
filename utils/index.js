@@ -26,10 +26,19 @@ exports.createSendToken = (user, req, res) => {
     httpOnly: true,
   };
   if (process.env.NODE_ENV == "production") cookieOPtions.secure = true;
+  const newUser = {
+    email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    role: user.role,
+    _id: user._id,
+  };
 
   res.cookie("jwt", token, cookieOPtions);
+
   res.status(200).json({
     status: "success",
     token,
+    user: newUser,
   });
 };

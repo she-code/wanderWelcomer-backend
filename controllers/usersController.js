@@ -76,3 +76,32 @@ exports.login = async (req, res) => {
     console.log(error.message);
   }
 };
+//login
+exports.getUser = async (req, res) => {
+  const id = req.user;
+  try {
+    //search user using email
+    const user = await User.findById(id);
+    console.log(user);
+    if (!user) {
+      res.status(404).json({
+        status: "failed",
+        message: "no user found",
+      });
+      return;
+    }
+    const newUser = {
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      role: user.role,
+      _id: user._id,
+    };
+    res.status(200).json({
+      status: "success",
+      user: newUser,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};

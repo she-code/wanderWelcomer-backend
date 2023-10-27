@@ -74,6 +74,7 @@ exports.getPlace = async (req, res) => {
         status: "failed",
         message: "no place found with the given id",
       });
+      return;
     }
     res.status(200).json({
       status: "sucess",
