@@ -8,8 +8,8 @@ const committeApplicationSchema = new mongoose.Schema(
       required: [true, "Committe type is required"],
       enum: ["auto", "government"],
     },
-    image: { type: String },
-    user: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    image: { type: String, required: [true, "Image is required"] },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     status: {
       type: String,
       default: "pending",

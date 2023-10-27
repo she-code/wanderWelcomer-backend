@@ -37,6 +37,7 @@ exports.getAllUsers = async (req, res) => {
     }
     res.status(200).json({
       status: "sucess",
+      result: users.length,
       users,
     });
   } catch (error) {

@@ -7,6 +7,7 @@ require("dotenv").config({ path: "./config.env" });
 const placesRoute = require("./routes/placesRoute");
 const usersRoute = require("./routes/usersRoute");
 const routesRoute = require("./routes/routesRoute");
+const committeApplicationRoute = require("./routes/committeApplication");
 
 //creates express application
 const app = express();
@@ -22,5 +23,5 @@ app.get("/", (req, res) => {
 app.use("/api/v1/places", placesRoute);
 app.use("/api/v1/users", usersRoute);
 app.use("/api/v1/routes", routesRoute);
-
+app.use("/api/v1/committes", committeApplicationRoute);
 module.exports = app;

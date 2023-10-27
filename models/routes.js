@@ -16,7 +16,7 @@ const routeSchema = new mongoose.Schema({
   duration: {
     type: String,
   },
-  addedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  // addedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
 const Route = mongoose.model("Route", routeSchema);

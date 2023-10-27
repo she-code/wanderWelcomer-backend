@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ["admin", "user", "committee"],
   },
+  currentLocation: {
+    type: String,
+    required: [true, "Current location is required"],
+  },
 });
 
 const User = mongoose.model("User", userSchema);

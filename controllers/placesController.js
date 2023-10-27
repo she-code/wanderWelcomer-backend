@@ -55,6 +55,7 @@ exports.getAllPlaces = async (req, res) => {
     }
     res.status(200).json({
       status: "sucess",
+      result: places.length,
       places,
     });
   } catch (error) {
