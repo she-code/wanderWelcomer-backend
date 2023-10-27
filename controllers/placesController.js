@@ -89,6 +89,21 @@ exports.getPlace = async (req, res) => {
   }
 };
 
+exports.deletePlace = async (req, res) => {
+  try {
+    const id = req.params.id;
+    await Place.findByIdAndRemove(id);
+    res.status(200).json({
+      status: "sucess",
+      message: "Successfully deleted",
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "failed",
+      message: error.message,
+    });
+  }
+};
 exports.getPlacesByCategory = async (req, res) => {
   try {
     const category = req.params.category;

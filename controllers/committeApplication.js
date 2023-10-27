@@ -86,6 +86,7 @@ exports.updateApplication = async (req, res) => {
       return;
     }
     application.status = status;
+    console.log(req.body);
     const updatedApplication = await application.save();
     if (!updatedApplication) {
       res.status(400).json({
