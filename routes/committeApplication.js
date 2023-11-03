@@ -5,4 +5,6 @@ route.post("/apply", committeApplication.applyCommitte);
 route.get("/", committeApplication.getAllApplications);
 route.get("/pending", committeApplication.getPendingApplication);
 route.patch("/:id", committeApplication.updateApplication);
+route.get("/:id", committeApplication.getApplication);
+
 module.exports = route;

@@ -106,3 +106,25 @@ exports.updateApplication = async (req, res) => {
     });
   }
 };
+exports.getApplication = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const application = await CommitteApplication.findById(id);
+    if (!application) {
+      res.status(404).json({
+        status: "failed",
+        message: "no application found with the given id",
+      });
+      return;
+    }
+    res.status(200).json({
+      status: "sucess",
+      application,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "failed",
+      message: error.message,
+    });
+  }
+};

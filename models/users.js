@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
   },
   currentLocation: {
     type: String,
-    required: [true, "Current location is required"],
+    // required: [true, "Current location is required"],
   },
 });
 
